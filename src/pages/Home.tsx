@@ -31,29 +31,28 @@ export function Home() {
   }
 
   function handleRemoveTask(id : number, title: string) {
-
-    Alert.alert("Remover", `Deseja remover a tarefa ${title}?`,[
-      {
-          text: 'Sim',
-          onPress: () =>  {
-            const filterTasks = tasks.filter(task => task.id !== id)
-            setTasks(filterTasks)
-            const total = filterTasks.reduce(( total, {done} ) => {
-            if(done){
-              return total + 1
-            }
-            else{
-              return total + 0
-            }
-        },0) 
-          setTasksDone(total) 
-        }
-      },
-      {
-        text: 'Não',
-        style: 'cancel'
-      },
-    ])
+    Alert.alert(
+      "Remover",
+      `Deseja remover a tarefa ${tasks.find((task) => task.id === id)?.title}?`,
+      [
+        {
+          text: "Sim",
+          onPress: () => {
+            const filterTasks = tasks.filter((task) => task.id !== id);
+            setTasks(filterTasks);
+            const total = filterTasks.reduce(
+              (total, { done }) => (done ? total + 1 : total),
+              0
+            );
+            setTasksDone(total);
+          },
+        },
+        {
+          text: "Não",
+          style: "cancel",
+        },
+      ]
+    );
   }
 
   return (
